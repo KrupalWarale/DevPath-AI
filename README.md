@@ -15,70 +15,70 @@
 
 ## 📋 Overview
 
+**DevPath AI** is a fully client-side, AI-powered tool for static analysis and qualitative auditing of GitHub repositories. It goes beyond traditional linters by assessing **project health, architectural maturity, maintainability, and real-world relevance**.
 
+Powered by the GitHub REST API for metadata extraction and (optionally) Google's Gemini model for deep semantic evaluation, it delivers insightful technical assessments without cloning the full codebase.
 
-(Demo updated at bottom)
+*(Live demo screenshots shown below)*
 
+## 🏗 Architecture
 
+![Architecture Diagram](https://github.com/user-attachments/assets/7c739725-0e8e-449e-9792-a9f01669f2b8)
 
-
-
-**DevPath AI** is a client-side, AI-driven application designed to perform static analysis and qualitative auditing of GitHub repositories. Unlike traditional linters that focus on syntax, DevPath AI evaluates **project health, architectural maturity, and maintainability**.
-
-It leverages the **GitHub REST API** for metadata extraction and **Google's Gemini 2.5 Flash** model for semantic analysis, bridging the gap between raw code metrics and human-like technical assessment.
-
-## 🏗 Architecture & Engineering
-<br>
-<img width="1920" height="280" alt="{215B7ABF-E786-488E-B012-3C13736C0B62}" src="https://github.com/user-attachments/assets/7c739725-0e8e-449e-9792-a9f01669f2b8" />
-<br>
-
-The application operates on a serverless, client-side architecture. The analysis pipeline consists of three distinct stages:
+The application follows a serverless, client-side pipeline with three core stages:
 
 ### 1. Data Ingestion & Normalization
-The system interfaces directly with the GitHub API to reconstruct a holistic view of the repository without cloning the full codebase.
-- **Metadata Extraction:** Retrieves stars, forks, and updated timestamps to gauge community interest and maintenance frequency.
-- **Language Heuristics:** Aggregates byte-counts per language to construct a weighted distribution of the technology stack.
-- **Structural Mapping:** Fetches the root directory file tree (`/contents`). This allows the system to infer architecture (e.g., Monorepo vs. Polyrepo, presence of CI/CD configs like `.github/workflows`, Docker containers, etc.) without reading every file.
-- **Context Window Optimization:** The `README.md` is fetched and programmatically truncated to 8,000 characters to maximize token efficiency while retaining core documentation context.
+- Interfaces directly with the GitHub API to reconstruct repository structure.
+- Extracts: stars, forks, update timestamps, language distribution, root directory tree, CI/CD configs, Dockerfiles, etc.
+- Truncates README to ~8,000 characters for optimal token usage while preserving key context.
 
-### 2. Semantic Analysis Engine (Gemini 2.5)
-The normalized data is fed into a **Google GenAI** pipeline.
-- **Model:** `gemini-2.5-flash`
-- **Configuration:** Temperature set to `0.4` for deterministic, analytical outputs.
-- **Prompt Engineering:** The model is primed with a "Senior Technical Interviewer" persona. It evaluates based on:
-    - **Code Quality:** Inferred from file structure conventions and language usage.
-    - **Documentation:** Analyzed for clarity, installation instructions, and usage examples.
-    - **Real-world Relevance:** Assesses if the project resembles a production-ready application or a toy project.
-- **Structured Output:** We utilize `responseSchema` (OpenAPI standard) to enforce a strict JSON return format, preventing hallucinated data structures and ensuring type safety in the frontend.
+### 2. Semantic Analysis Engine (Primary)
+- **Model:** Google Gemini 1.5 Flash (`gemini-1.5-flash`)
+- **Configuration:** - Temperature: 0.4 for consistent, analytical responses.
+  - Persona: "Senior Technical Interviewer".
+- **Output:** Enforced structured JSON via `responseSchema` for type-safe frontend rendering.
 
 ### 3. Visualization Layer
-The frontend renders the deterministic JSON output into an interactive dashboard.
-- **Scoring Algorithm:** 0-100 weighted index based on the AI's multidimensional analysis.
-- **Visuals:** Recharts-powered gauge and pie charts for immediate visual parsing of metrics.
+- Renders output into an interactive dashboard.
+- **Features:** Overall 0–100 score, gauges, pie charts (via Recharts), prioritized improvement roadmap, and detailed feedback sections.
+
+## 🔄 Alternative Rating Method (No Gemini API Required)
+
+If you don't have a Google Gemini API key, DevPath AI automatically falls back to a **heuristic-based scoring system** using lightweight, rule-based metrics. This mode is fully local, instant, and provides a solid approximate rating.
+
+### Heuristic Scoring Breakdown (0–100 Scale)
+
+| Category | Weight | Key Metrics Considered |
+| :--- | :--- | :--- |
+| **Activity & Popularity** | **30%** | Stars, forks, recent commits (last update age), open/closed issues ratio. |
+| **Documentation** | **25%** | README length & quality indicators, presence of `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`. |
+| **Structure & Best Practices** | **25%** | Tests folder, CI/CD workflows, Dockerfile, LICENSE, config files, `.gitignore`. |
+| **Language & Ecosystem** | **10%** | Primary language dominance, number of languages, inferred maturity. |
+| **Maintenance Signals** | **10%** | Archived status, release frequency, issue responsiveness hints. |
+
+This fallback ensures the tool remains usable for everyone. For advanced offline AI analysis in the future, integration with local models (e.g., via Ollama: DeepSeek-Coder, Qwen2.5-Coder, or Phi-3) could be added.
 
 ## 🛠 Tech Stack
 
 | Component | Technology | Rationale |
 | :--- | :--- | :--- |
-| **Core Framework** | React 19 + TypeScript | Type-safe component architecture for maintainability. |
-| **Styling** | Tailwind CSS | Utility-first CSS for rapid, responsive layout execution. |
-| **AI Runtime** | Google GenAI SDK | Native interface for Gemini models with schema validation. |
-| **Visualizations** | Recharts | Composable charting library for React. |
-| **Icons** | Lucide React | Lightweight, consistent SVG iconography. |
+| **Core Framework** | React 19 + TypeScript | Modern, type-safe UI development. |
+| **Styling** | Tailwind CSS | Rapid, responsive, utility-first design. |
+| **AI Runtime** | Google GenAI SDK | Native Gemini integration with schema support. |
+| **Visualizations** | Recharts | Lightweight, composable React charts. |
+| **Icons** | Lucide React | Consistent, lightweight SVG icons. |
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-*   Node.js v18+
-*   Google Gemini API Key
+- Node.js v18 or higher
+- (Optional) Google Gemini API Key for full AI-powered analysis
 
 ### Installation
 
-1.  **Clone the Repository**
-    ```bash
-    git clone https://github.com/KrupalWarale/DevPath-AI.git
-    cd DevPath-AI
-    ```
+```bash
+git clone [https://github.com/KrupalWarale/DevPath-AI.git](https://github.com/KrupalWarale/DevPath-AI.git)
+cd DevPath-AI
 
 2.  **Environment Configuration**
     Create a `.env` file in the root directory.
