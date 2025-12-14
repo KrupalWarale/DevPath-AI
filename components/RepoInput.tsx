@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Github } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 interface RepoInputProps {
   onAnalyze: (url: string) => void;
@@ -17,23 +17,20 @@ const RepoInput: React.FC<RepoInputProps> = ({ onAnalyze, isLoading }) => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto text-center space-y-8">
-      <div className="space-y-4">
-        <div className="inline-flex items-center justify-center p-4 bg-surface rounded-full shadow-lg mb-4 ring-1 ring-white/10">
-          <Github className="w-12 h-12 text-primary" />
-        </div>
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">
-          DevPath AI
+    <div className="w-full max-w-2xl mx-auto text-center space-y-8 relative z-10">
+      <div className="space-y-6">
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight pt-8">
+           <span className="bg-rainbow-gradient text-transparent bg-clip-text animate-text-gradient drop-shadow-[0_0_30px_rgba(126,66,167,0.4)]">DevPath AI</span>
         </h1>
-        <p className="text-lg text-slate-400 max-w-lg mx-auto">
-          AI-powered code analysis. Paste your GitHub repository link below to get a professional audit, score, and personalized roadmap.
+        <p className="text-lg text-slate-300 max-w-lg mx-auto leading-relaxed drop-shadow-sm">
+          AI-powered code analysis. Paste your GitHub repository link below to get a <span className="text-primary font-semibold">professional audit</span>, score, and personalized roadmap.
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="relative group">
-        <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-200"></div>
-        <div className="relative flex items-center bg-surface rounded-lg shadow-2xl ring-1 ring-white/10 overflow-hidden">
-          <div className="pl-4 text-slate-500">
+      <form onSubmit={handleSubmit} className="relative group max-w-xl mx-auto">
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-neon-teal via-primary to-neon-purple rounded-xl blur opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse-slow"></div>
+        <div className="relative flex items-center glass-panel rounded-xl shadow-2xl ring-1 ring-white/10 overflow-hidden">
+          <div className="pl-5 text-primary/70">
             <Search className="w-6 h-6" />
           </div>
           <input
@@ -47,10 +44,10 @@ const RepoInput: React.FC<RepoInputProps> = ({ onAnalyze, isLoading }) => {
           <button
             type="submit"
             disabled={isLoading || !url}
-            className={`px-8 py-5 font-bold uppercase tracking-wider transition-all duration-200 ${
+            className={`px-8 py-5 font-bold uppercase tracking-wider transition-all duration-300 ${
               isLoading || !url
-                ? 'bg-slate-700 text-slate-400 cursor-not-allowed'
-                : 'bg-primary hover:bg-blue-600 text-white'
+                ? 'bg-slate-800/50 text-slate-500 cursor-not-allowed'
+                : 'bg-blue-gradient text-white hover:shadow-glow-blue hover:scale-105'
             }`}
           >
             {isLoading ? 'Analyzing...' : 'Audit'}
@@ -58,13 +55,10 @@ const RepoInput: React.FC<RepoInputProps> = ({ onAnalyze, isLoading }) => {
         </div>
       </form>
       
-      <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-500 pt-4">
-        <span>Try:</span>
-        <button onClick={() => setUrl('https://github.com/facebook/react')} className="hover:text-primary transition-colors">facebook/react</button>
-        <span>•</span>
-        <button onClick={() => setUrl('https://github.com/torvalds/linux')} className="hover:text-primary transition-colors">torvalds/linux</button>
-        <span>•</span>
-        <button onClick={() => setUrl('https://github.com/airbnb/javascript')} className="hover:text-primary transition-colors">airbnb/javascript</button>
+      <div className="flex flex-wrap justify-center gap-3 text-sm text-slate-400 pt-6">
+        <span className="opacity-70">Try popular repos:</span>
+        <button onClick={() => setUrl('https://github.com/facebook/react')} className="px-3 py-1 rounded-full glass-panel hover:bg-white/10 hover:text-primary transition-all border border-white/5 hover:border-primary/30">facebook/react</button>
+        <button onClick={() => setUrl('https://github.com/torvalds/linux')} className="px-3 py-1 rounded-full glass-panel hover:bg-white/10 hover:text-primary transition-all border border-white/5 hover:border-primary/30">torvalds/linux</button>
       </div>
     </div>
   );

@@ -4,22 +4,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DevPath AI - AI Code Analysis</title>
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              background: '#0f172a', // Slate 900
-              surface: '#1e293b', // Slate 800
-              primary: '#3b82f6', // Blue 500
-              accent: '#8b5cf6', // Violet 500
-              success: '#10b981', // Emerald 500
-              warning: '#f59e0b', // Amber 500
-              danger: '#ef4444', // Red 500
+              background: '#000000', // Pure Black
+              surface: 'rgba(0, 0, 0, 0.9)', // Deep black for cards
+              primary: '#72a1de', // Main Blue
+              'primary-dark': '#4a7bc8',
+              'neon-purple': '#b967db',
+              'neon-teal': '#00aaa7',
+              success: '#4CAF50',
+              warning: '#ffc107',
+              danger: '#f44336',
             },
             fontFamily: {
               mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", 'monospace'],
+              sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', "Helvetica Neue", 'Arial', 'sans-serif'],
+            },
+            backgroundImage: {
+              'rainbow-gradient': 'linear-gradient(to right, #00aaa7, #7e42a7, #6600c5, #6070fd, #2a46ff, #0099ff, #008ead)',
+              'blue-gradient': 'linear-gradient(45deg, #72a1de, #4a7bc8)',
+              'purple-gradient': 'linear-gradient(45deg, #b967db, #8e44ad)',
+              'header-gradient': 'linear-gradient(135deg, rgba(114, 161, 222, 0.15), rgba(96, 112, 253, 0.12), rgba(0, 170, 167, 0.1))',
+            },
+            boxShadow: {
+              'glow-blue': '0 0 25px rgba(114, 161, 222, 0.4)',
+              'glow-purple': '0 0 20px rgba(185, 103, 219, 0.6)',
+              'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.5)',
+            },
+            animation: {
+              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'text-gradient': 'textGradient 5s linear infinite',
+              'float-up': 'floatUp 15s linear infinite',
+            },
+            keyframes: {
+              textGradient: {
+                '0%': { backgroundPosition: '0% 50%' },
+                '100%': { backgroundPosition: '200% 50%' },
+              },
+              floatUp: {
+                '0%': { transform: 'translateY(100vh)', opacity: 0 },
+                '10%': { opacity: 0.8 },
+                '90%': { opacity: 0.8 },
+                '100%': { transform: 'translateY(-10vh)', opacity: 0 },
+              }
             }
           },
         },
@@ -27,8 +59,8 @@
     </script>
     <style>
       body {
-        background-color: #0f172a;
-        color: #f8fafc;
+        background-color: #000000;
+        color: #ffffff;
       }
       /* Custom scrollbar */
       ::-webkit-scrollbar {
@@ -36,14 +68,37 @@
         height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #1e293b;
+        background: #000000;
       }
       ::-webkit-scrollbar-thumb {
-        background: #475569;
+        background: #4a7bc8;
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #64748b;
+        background: #72a1de;
+      }
+      
+      .glass-panel {
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(114, 161, 222, 0.15);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 10px rgba(114, 161, 222, 0.5);
+      }
+
+      .animate-text-gradient {
+        background-size: 200% auto;
+      }
+
+      /* Star particle styling */
+      .star-particle {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        pointer-events: none;
       }
     </style>
   <script type="importmap">
