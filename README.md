@@ -20,8 +20,9 @@
 It leverages the **GitHub REST API** for metadata extraction and **Google's Gemini 2.5 Flash** model for semantic analysis, bridging the gap between raw code metrics and human-like technical assessment.
 
 ## 🏗 Architecture & Engineering
+<br>
 <img width="1920" height="280" alt="{215B7ABF-E786-488E-B012-3C13736C0B62}" src="https://github.com/user-attachments/assets/7c739725-0e8e-449e-9792-a9f01669f2b8" />
-
+<br>
 
 The application operates on a serverless, client-side architecture. The analysis pipeline consists of three distinct stages:
 
