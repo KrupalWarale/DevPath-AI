@@ -20,6 +20,8 @@
 
 ## 📋 Overview
 
+(Demo is upadated at bottom)
+
 **DevPath AI** is a client-side, AI-driven application designed to perform static analysis and qualitative auditing of GitHub repositories. Unlike traditional linters that strictly focus on syntax, DevPath AI evaluates **project health, architectural maturity, and maintainability**.
 
 It leverages the **GitHub REST API** for metadata extraction and **Google's Gemini 2.5 Flash** model for semantic analysis. When AI services are unavailable, it gracefully degrades to a **Lightweight Heuristic Engine**, ensuring users always receive actionable insights.
@@ -146,13 +148,11 @@ Contributions are welcome. Please ensure all pull requests adhere to the followi
 
 ## 🎥 Demo
 
-<div align="center">
-  <a href="https://github.com/user-attachments/assets/659596f7-c152-4aaa-a087-c067fa45a57e">
-    <img src="https://img.youtube.com/vi/placeholder/0.jpg" alt="Watch the Demo Video" width="600"/>
-    <br>
-    <i>(Click to view the demo video)</i>
-  </a>
-</div>
+
+https://github.com/user-attachments/assets/0630f1ec-6c11-49d7-b9e5-a66a7674ad5a
+
+
+
 
 ---
 
