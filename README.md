@@ -69,13 +69,14 @@ When the API key is active, the normalized data is fed into a **Google GenAI** p
 
 ### 📉 Secondary: Lightweight Heuristic Model (Fallback)
 If Gemini is unavailable (e.g., no API key, quota exceeded, or offline mode), DevPath switches to a deterministic algorithmic scoring model based on weighted metadata:
-
+<br>
 | Metric Category | Weight | Logic |
 | :--- | :--- | :--- |
 | **Activity Health** | 40% | Calculates decay based on `pushed_at`. Projects updated within 30 days score max; >6 months incur penalties. |
 | **Community Validation** | 30% | Logarithmic scoring of `stargazers_count` and `forks_count`. Prevents outliers from skewing data while rewarding popularity. |
 | **Documentation Check** | 20% | Boolean checks for `README.md` existence + length heuristics (>500 chars) and presence of `description` field. |
 | **Complexity Bonus** | 10% | Awards points for multi-language stacks and recognized config files (e.g., `package.json`, `docker-compose.yml`) implying architectural depth. |
+<br>
 
 > **Note:** While the Lightweight model cannot provide specific "qualitative" feedback (like "your variable naming is poor"), it provides a highly accurate "Health Index" based on statistical auditing standards.
 
