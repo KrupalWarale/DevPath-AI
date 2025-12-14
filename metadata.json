@@ -1,0 +1,5 @@
+{
+  "name": "DevPath AI",
+  "description": "AI-powered GitHub repository evaluator that provides scores, summaries, and personalized roadmaps for developers.",
+  "requestFramePermissions": []
+}
