@@ -70,6 +70,7 @@ When the API key is active, the normalized data is fed into a **Google GenAI** p
 ### 📉 Secondary: Lightweight Heuristic Model (Fallback)
 If Gemini is unavailable (e.g., no API key, quota exceeded, or offline mode), DevPath switches to a deterministic algorithmic scoring model based on weighted metadata:
 <br>
+<br>
 | Metric Category | Weight | Logic |
 | :--- | :--- | :--- |
 | **Activity Health** | 40% | Calculates decay based on `pushed_at`. Projects updated within 30 days score max; >6 months incur penalties. |
