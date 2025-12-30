@@ -10,7 +10,7 @@
 
 <br />
 
-**From raw code metrics to human-like technical assessment.**
+**From raw GitHub repositories to human-like technical evaluation.**
 <br />
 [**View Demo**](#-demo) · [**Report Bug**](https://github.com/KrupalWarale/DevPath-AI/issues) · [**Request Feature**](https://github.com/KrupalWarale/DevPath-AI/issues)
 
@@ -20,94 +20,93 @@
 
 ## 📋 Overview
 
-(Demo is upadated at bottom)
+**DevPath AI** is a client-side application that analyzes GitHub repositories and generates **qualitative technical assessments** using **Google Gemini**.
 
-**DevPath AI** is a client-side, AI-driven application designed to perform static analysis and qualitative auditing of GitHub repositories. Unlike traditional linters that strictly focus on syntax, DevPath AI evaluates **project health, architectural maturity, and maintainability**.
+Instead of relying on rule-based linters or static scores, DevPath AI uses a **large language model** to reason about:
+- Project structure
+- Architectural maturity
+- Documentation quality
+- Real-world usability
 
-It leverages the **GitHub REST API** for metadata extraction and **Google's Gemini 2.5 Flash** model for semantic analysis. When AI services are unavailable, it gracefully degrades to a **Lightweight Heuristic Engine**, ensuring users always receive actionable insights.
+All analysis is performed **exclusively through the Gemini API**.
 
 ---
 
-## 🏗 Architecture & Engineering
+## 🏗 Architecture
 
 <div align="center">
   <img width="100%" alt="DevPath Architecture" src="https://github.com/user-attachments/assets/7c739725-0e8e-449e-9792-a9f01669f2b8" />
 </div>
 <br>
 
-The application operates on a serverless, client-side architecture with a three-stage pipeline:
+DevPath AI follows a fully client-side, serverless pipeline:
 
-### 1. Data Ingestion & Normalization
-The system interfaces directly with the GitHub API to reconstruct a holistic view of the repository without cloning the full codebase.
-- **Metadata Extraction:** Retrieves stars, forks, and updated timestamps to gauge community interest and maintenance frequency.
-- **Language Heuristics:** Aggregates byte-counts per language to construct a weighted distribution of the technology stack.
-- **Structural Mapping:** Fetches the root directory file tree to infer architecture (Monorepo vs. Polyrepo, CI/CD configs, Docker presence).
-- **Context Window Optimization:** The `README.md` is fetched and programmatically truncated to 8,000 characters to maximize token efficiency.
+### 1. Data Ingestion
+The application fetches repository information using the **GitHub REST API** without cloning the repository.
+- Repository metadata (stars, forks, activity)
+- Language distribution
+- File and folder structure
+- README content (truncated for token efficiency)
 
-### 2. Analysis Engine (Hybrid Approach)
-The system utilizes a dual-engine approach to scoring:
-- **Primary:** Semantic Analysis via Gemini 2.5 Flash.
-- **Secondary:** Lightweight Heuristic Algorithms (Fallback).
+### 2. AI Analysis Engine
+The normalized repository context is passed directly to **Google Gemini** for reasoning and evaluation.
+- **Model:** `gemini-2.5-flash`
+- **Temperature:** `0.4`
+- **Persona:** Senior Technical Interviewer
+
+The model generates structured feedback covering:
+- Codebase organization
+- Documentation clarity
+- Engineering maturity
+- Production readiness
 
 ### 3. Visualization Layer
-The frontend renders deterministic JSON output into an interactive dashboard using **Recharts** for immediate visual parsing of metrics.
+The AI response is returned as deterministic JSON and rendered into an interactive dashboard using **Recharts**.
 
 ---
 
-## ⚖️ Scoring Methodology
+## 🧠 Analysis Methodology
 
-DevPath AI ensures reliability even without an active AI connection. Below are the two methods used to audit repositories.
+DevPath AI relies entirely on **semantic reasoning**, not static rules.
 
-### 🧠 Primary: Semantic Analysis (Gemini 2.5)
-When the API key is active, the normalized data is fed into a **Google GenAI** pipeline.
-- **Model:** `gemini-2.5-flash` (Temperature: `0.4`)
-- **Persona:** "Senior Technical Interviewer"
-- **Analysis Vectors:**
-    - **Code Quality:** Inferred from file structure conventions and language usage.
-    - **Documentation:** Analyzed for clarity, installation instructions, and usage examples.
-    - **Real-world Relevance:** Assesses if the project resembles a production-ready application or a toy project.
+Gemini evaluates the repository across multiple dimensions:
+- **Code Quality:** inferred from structure, language usage, and conventions
+- **Documentation:** clarity, completeness, and onboarding readiness
+- **Architecture:** modularity, configuration, and scalability signals
+- **Practical Relevance:** hobby project vs real-world system
 
-### 📉 Secondary: Lightweight Heuristic Model (Fallback)
-If Gemini is unavailable (e.g., no API key, quota exceeded, or offline mode), DevPath switches to a deterministic algorithmic scoring model based on weighted metadata:
-<br>
-<br>
-| Metric Category | Weight | Logic |
-| :--- | :--- | :--- |
-| **Activity Health** | 40% | Calculates decay based on `pushed_at`. Projects updated within 30 days score max; >6 months incur penalties. |
-| **Community Validation** | 30% | Logarithmic scoring of `stargazers_count` and `forks_count`. Prevents outliers from skewing data while rewarding popularity. |
-| **Documentation Check** | 20% | Boolean checks for `README.md` existence + length heuristics (>500 chars) and presence of `description` field. |
-| **Complexity Bonus** | 10% | Awards points for multi-language stacks and recognized config files (e.g., `package.json`, `docker-compose.yml`) implying architectural depth. |
-<br>
-
-> **Note:** While the Lightweight model cannot provide specific "qualitative" feedback (like "your variable naming is poor"), it provides a highly accurate "Health Index" based on statistical auditing standards.
+The output includes:
+- An overall technical score (0–100)
+- Strengths and weaknesses
+- A prioritized improvement roadmap
 
 ---
 
 ## 🛠 Tech Stack
 
-| Component | Technology | Rationale |
-| :--- | :--- | :--- |
-| **Core Framework** | React 19 + TypeScript | Type-safe component architecture for maintainability. |
-| **Styling** | Tailwind CSS | Utility-first CSS for rapid, responsive layout execution. |
-| **AI Runtime** | Google GenAI SDK | Native interface for Gemini models with schema validation. |
-| **Visualizations** | Recharts | Composable charting library for React. |
-| **Icons** | Lucide React | Lightweight, consistent SVG iconography. |
+| Component | Technology |
+|---------|------------|
+| Frontend | React 19 + TypeScript |
+| Styling | Tailwind CSS |
+| AI Engine | Google Gemini API |
+| Charts | Recharts |
+| Icons | Lucide React |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-* Node.js v18+
-* Google Gemini API Key (Optional - required for Semantic Analysis only)
+- Node.js v18+
+- Google Gemini API Key
 
 ### Installation
 
-1. **Clone the Repository**
-    ```bash
-    git clone [https://github.com/KrupalWarale/DevPath-AI.git](https://github.com/KrupalWarale/DevPath-AI.git)
-    cd DevPath-AI
-    ```
+1. **Clone the repository**
+```bash
+git clone https://github.com/KrupalWarale/DevPath-AI.git
+cd DevPath-AI
+
 
 2. **Environment Configuration**
     Create a `.env` file in the root directory.
