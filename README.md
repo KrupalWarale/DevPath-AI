@@ -25,7 +25,11 @@
 It leverages the **GitHub REST API** for metadata extraction and **Google's Gemini 2.0 Flash** model for deep semantic analysis.
 
 ---
+## 🎥 Demo
 
+https://github.com/user-attachments/assets/0630f1ec-6c11-49d7-b9e5-a66a7674ad5a
+
+---
 ## 🏗 Architecture & Engineering
 
 The application operates on a serverless, client-side architecture with a focus on high-fidelity AI processing:
@@ -87,13 +91,9 @@ The processed data is analyzed using Google Gemini:
     ```
 
 ---
----
 
-## 🎥 Demo
 
-https://github.com/user-attachments/assets/0630f1ec-6c11-49d7-b9e5-a66a7674ad5a
 
----
 
 ## 📄 License
 
