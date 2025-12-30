@@ -20,42 +20,41 @@
 
 ## 📋 Overview
 
-**DevPath AI** is a client-side, AI-driven application designed to perform static analysis and qualitative auditing of GitHub repositories. It evaluates **project health, architectural maturity, and maintainability** by bridging the gap between raw metadata and expert-level insight.
+**DevPath AI** is a client-side, AI-driven application designed to perform static analysis and qualitative auditing of GitHub repositories. It evaluates project health, architectural maturity, and maintainability by combining repository metadata with LLM reasoning.
 
-The system leverages the **GitHub REST API** for data extraction and **Google's Gemini 2.0 Flash** model to provide a deep, semantic "Senior Developer" perspective on any public repository.
+It leverages the **GitHub REST API** for metadata extraction and **Google's Gemini 2.0 Flash** model for deep semantic analysis.
 
 ---
 
 ## 🏗 Architecture & Engineering
 
-The application operates on a serverless, client-side architecture with a streamlined three-stage pipeline:
+The application operates on a serverless, client-side architecture with a focus on high-fidelity AI processing:
 
 ### 1. Data Ingestion & Normalization
-The system interfaces with the GitHub API to reconstruct a repository profile without full cloning:
-* **Metadata Extraction:** Analyzes stars, forks, and activity timestamps.
-* **Language Distribution:** Aggregates technology stacks based on byte-counts.
-* **Structural Mapping:** Inspects file trees to infer architecture (Monorepo, CI/CD, Docker).
-* **Context Optimization:** README content is programmatically processed to fit within the Gemini context window efficiently.
+The system interfaces directly with the GitHub API to reconstruct a holistic view of the repository:
+- **Metadata Extraction:** Retrieves stars, forks, and update frequency.
+- **Language Heuristics:** Aggregates byte-counts per language to map the technology stack.
+- **Structural Mapping:** Fetches the file tree to infer architecture (Monorepo, CI/CD, Docker presence).
+- **Context Optimization:** README content is programmatically truncated to ensure token efficiency within the AI context window.
 
-### 2. Analysis Engine (AI-Only)
-The core intelligence is powered by **Gemini 2.0 Flash**. The engine uses a "Senior Technical Interviewer" persona to evaluate:
-* **Code Quality:** Inferred from file structure and language conventions.
-* **Documentation:** Clarity of installation, usage, and contribution guides.
-* **Production Readiness:** Assessing if the project is a "toy" or ready for deployment.
-
-### 3. Visualization Layer
-The frontend transforms the AI's JSON output into an interactive dashboard using **Recharts** and **Tailwind CSS**.
+### 2. Semantic Analysis Engine (Gemini 2.0)
+The normalized data is processed via the **Google GenAI** pipeline:
+- **Persona:** "Senior Technical Interviewer"
+- **Analysis Vectors:**
+    - **Code Quality:** Analysis of file structure conventions and stack complexity.
+    - **Documentation:** Evaluation of clarity, setup instructions, and examples.
+    - **Maturity:** Assessment of whether the project is production-ready or a prototype.
 
 ---
 
 ## 🛠 Tech Stack
 
-| Component | Technology |
-| :--- | :--- |
-| **Core Framework** | React 19 + TypeScript |
-| **AI Runtime** | Google GenAI SDK (Gemini 2.0 Flash) |
-| **Styling** | Tailwind CSS |
-| **Visualizations** | Recharts |
+| Component | Technology | Rationale |
+| :--- | :--- | :--- |
+| **Core Framework** | React 19 + TypeScript | Type-safe component architecture. |
+| **Styling** | Tailwind CSS | Utility-first CSS for rapid layout execution. |
+| **AI Runtime** | Google GenAI SDK | Native interface for Gemini models. |
+| **Visualizations** | Recharts | Interactive charting for metric parsing. |
 
 ---
 
@@ -63,23 +62,24 @@ The frontend transforms the AI's JSON output into an interactive dashboard using
 
 ### Prerequisites
 * Node.js v18+
-* **Google Gemini API Key** (Required for analysis)
+* Google Gemini API Key
 
 ### Installation
 
-1.  **Clone the Repository**
+1. **Clone the Repository**
     ```bash
     git clone [https://github.com/KrupalWarale/DevPath-AI.git](https://github.com/KrupalWarale/DevPath-AI.git)
     cd DevPath-AI
     ```
 
-2.  **Environment Configuration**
+2. **Environment Configuration**
     Create a `.env` file in the root directory:
     ```bash
     VITE_GEMINI_API_KEY=your_google_gemini_api_key
     ```
 
-3.  **Execute**
+3. **Execute**
+    Install dependencies and run the development server:
     ```bash
     npm install
     npm run dev
@@ -89,11 +89,12 @@ The frontend transforms the AI's JSON output into an interactive dashboard using
 
 ## 🧩 Usage Guide
 
-1.  **Input:** Enter a valid GitHub repository URL.
-2.  **Analyze:** The system fetches metadata and sends it to the Gemini API.
-3.  **Results:** * **Overall Score:** A qualitative metric (0-100).
-    * **Roadmap:** Prioritized actionable steps for improvement.
-    * **Deep Dive:** Feedback on Architecture, Readability, and Community Health.
+1. **Input:** Enter a valid GitHub repository URL.
+2. **Process:** The system crawls metadata and passes the context to the Gemini API.
+3. **Result:**
+    * **Overall Score:** A high-level quality metric (0-100).
+    * **AI Insights:** Qualitative feedback on Code Quality, Documentation, and Structure.
+    * **Roadmap:** A prioritized list of actionable steps for improvement.
 
 ---
 
