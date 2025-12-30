@@ -31,19 +31,20 @@ It leverages the **GitHub REST API** for metadata extraction and **Google's Gemi
 The application operates on a serverless, client-side architecture with a focus on high-fidelity AI processing:
 
 ### 1. Data Ingestion & Normalization
-The system interfaces directly with the GitHub API to reconstruct a holistic view of the repository:
-- **Metadata Extraction:** Retrieves stars, forks, and update frequency.
-- **Language Heuristics:** Aggregates byte-counts per language to map the technology stack.
-- **Structural Mapping:** Fetches the file tree to infer architecture (Monorepo, CI/CD, Docker presence).
-- **Context Optimization:** README content is programmatically truncated to ensure token efficiency within the AI context window.
+The system uses the GitHub API to understand a repository:
+- **Repo Info:** Stars, forks, and last update.
+- **Languages:** Detects tech stack from language usage.
+- **Structure:** Reads file tree to identify project setup (CI/CD, Docker, etc.).
+- **README Handling:** Shortens README to fit AI limits.
 
 ### 2. Semantic Analysis Engine (Gemini 2.0)
-The normalized data is processed via the **Google GenAI** pipeline:
-- **Persona:** "Senior Technical Interviewer"
-- **Analysis Vectors:**
-    - **Code Quality:** Analysis of file structure conventions and stack complexity.
-    - **Documentation:** Evaluation of clarity, setup instructions, and examples.
-    - **Maturity:** Assessment of whether the project is production-ready or a prototype.
+The processed data is analyzed using Google Gemini:
+- **Role:** Senior Technical Interviewer
+- **Checks:**
+  - **Code Quality:** Project structure and stack complexity.
+  - **Documentation:** Clarity of README and setup steps.
+  - **Project Level:** Prototype vs production-ready.
+
 
 ---
 
@@ -86,16 +87,6 @@ The normalized data is processed via the **Google GenAI** pipeline:
     ```
 
 ---
-
-## 🧩 Usage Guide
-
-1. **Input:** Enter a valid GitHub repository URL.
-2. **Process:** The system crawls metadata and passes the context to the Gemini API.
-3. **Result:**
-    * **Overall Score:** A high-level quality metric (0-100).
-    * **AI Insights:** Qualitative feedback on Code Quality, Documentation, and Structure.
-    * **Roadmap:** A prioritized list of actionable steps for improvement.
-
 ---
 
 ## 🎥 Demo
