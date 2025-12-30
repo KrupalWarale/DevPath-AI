@@ -71,28 +71,29 @@ No static linters
 
 ```bash
 git clone https://github.com/KrupalWarale/DevPath-AI.git
-cd DevPath-AI
-npm install
+cd DevPath-AI ```
+
+```bash npm install```
 Create .env file:
 
-bash
+``` bash
 Copy code
-VITE_GEMINI_API_KEY=your_gemini_api_key
+VITE_GEMINI_API_KEY=your_gemini_api_key```
 Run the app:
 
-bash
+```bash
 Copy code
-npm run dev
-🧩 Usage
+npm run dev```
+### 🧩 Usage
 Enter a GitHub repository URL
 
 Start analysis
 
 View AI-generated results
 
-🎥 Demo
+### 🎥 Demo
 https://github.com/user-attachments/assets/0630f1ec-6c11-49d7-b9e5-a66a7674ad5a
 
-🤝 Contributing
+### 🤝 Contributing
 Contributions are welcome.
 Please keep the codebase simple and AI-focused.
